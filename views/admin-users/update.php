@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use app\models\tables\Roles;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Users */
@@ -17,7 +16,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
-        'role' => Roles::find()->all(),
+        'role' => $role
     ]) ?>
 
 </div>

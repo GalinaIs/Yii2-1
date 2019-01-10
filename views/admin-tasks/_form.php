@@ -16,8 +16,6 @@ use kartik\datetime\DateTimePicker;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    
-
     <?= $form->field($model, 'date')->widget(DateTimePicker::className(),[
         'name' => 'dp_1',
         'type' => DateTimePicker::TYPE_INPUT,

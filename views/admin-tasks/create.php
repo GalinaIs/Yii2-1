@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use app\models\tables\Users;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Tasks */
@@ -16,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
-        'user' => Users::find()->all(),
+        'user' => $user,
     ]) ?>
 
 </div>

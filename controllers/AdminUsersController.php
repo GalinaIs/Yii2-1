@@ -8,6 +8,7 @@ use app\models\filters\UsersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\tables\Roles;
 
 /**
  * AdminUsersController implements the CRUD actions for Users model.
@@ -65,6 +66,7 @@ class AdminUsersController extends Controller
     public function actionCreate()
     {
         $model = new Users();
+        $role = Roles::find()->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -72,6 +74,7 @@ class AdminUsersController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'role' => $role
         ]);
     }
 
@@ -85,6 +88,7 @@ class AdminUsersController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $role = Roles::find()->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -92,6 +96,7 @@ class AdminUsersController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'role' => $role
         ]);
     }
 
