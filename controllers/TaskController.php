@@ -16,7 +16,7 @@ class TaskController extends Controller {
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 3
+                'pageSize' => 6
             ]
         ]);
 

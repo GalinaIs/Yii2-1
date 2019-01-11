@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\tables\Users;
+use yii\helpers\ArrayHelper;
 
 /**
  * AdminTasksController implements the CRUD actions for Tasks model.
@@ -67,6 +68,7 @@ class AdminTasksController extends Controller
     {
         $model = new Tasks();
         $users = Users::find()->all();
+        $usersList = ArrayHelper::map($users, 'id', 'name');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -74,7 +76,7 @@ class AdminTasksController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'user' => $users
+            'usersList' => $usersList
         ]);
     }
 
@@ -89,6 +91,7 @@ class AdminTasksController extends Controller
     {
         $model = $this->findModel($id);
         $users = Users::find()->all();
+        $usersList = ArrayHelper::map($users, 'id', 'name');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -96,7 +99,7 @@ class AdminTasksController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'user' => $users
+            'usersList' => $usersList
         ]);
     }
 

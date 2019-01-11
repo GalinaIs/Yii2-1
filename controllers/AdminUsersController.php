@@ -8,6 +8,7 @@ use app\models\filters\UsersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use app\models\tables\Roles;
 
 /**
@@ -67,6 +68,7 @@ class AdminUsersController extends Controller
     {
         $model = new Users();
         $role = Roles::find()->all();
+        $rolesList = ArrayHelper::map($role, 'id', 'name');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -74,7 +76,7 @@ class AdminUsersController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'role' => $role
+            'rolesList' => $rolesList
         ]);
     }
 
@@ -89,6 +91,7 @@ class AdminUsersController extends Controller
     {
         $model = $this->findModel($id);
         $role = Roles::find()->all();
+        $rolesList = ArrayHelper::map($role, 'id', 'name');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -96,7 +99,7 @@ class AdminUsersController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'role' => $role
+            'rolesList' => $rolesList
         ]);
     }
 

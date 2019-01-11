@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Users */
@@ -19,9 +18,9 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?> 
 
-    <?= $form->field($model, 'role_id')->dropDownList(
-        ArrayHelper::map($role, 'id', 'name')
-    ) ?>
+    <?= $form->field($model, 'role_id')->dropDownList($rolesList) ?>
+
+    <?= $form->field($model, 'email')->input('email'); ?> 
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'RoleName',
                 'value' => $model->role->name
             ],
+            'email'
         ],
     ]) ?>
 
