@@ -3,6 +3,10 @@
 namespace app\models\tables;
 
 use Yii;
+use yii\db\Expression;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord as ActiveRecord;
+use yii\db\AfterSaveEvent;
 
 /**
  * This is the model class for table "users".
@@ -14,7 +18,7 @@ use Yii;
  * 
  * @property Roles $role;
  */
-class Users extends \yii\db\ActiveRecord
+class Users extends ActiveRecord
 {
     const SCENARIO_AUTH = 'auth';
     /**
@@ -52,7 +56,9 @@ class Users extends \yii\db\ActiveRecord
             'password' => 'Password',
             'name' => 'Name',
             'role_id' => 'Role',
-            'email' => 'E-mail'
+            'email' => 'E-mail',
+            'created_at' => 'Created time',
+            'update_at' => 'Updated time'
         ];
     }
 
@@ -70,5 +76,19 @@ class Users extends \yii\db\ActiveRecord
 
     public function getRole() {
         return $this->hasOne(Roles::class, ["id" => "role_id"]);
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['update_at'],
+                    ],
+                'value' => new Expression('NOW()'),
+            ],
+        ];
     }
 }

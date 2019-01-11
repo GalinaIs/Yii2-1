@@ -4,6 +4,10 @@ namespace app\models\tables;
 
 use Yii;
 use app\events\TaskEvent as TaskEvent;
+use yii\db\Expression;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord as ActiveRecord;
+use yii\db\AfterSaveEvent;
 
 /**
  * This is the model class for table "tasks".
@@ -16,7 +20,7 @@ use app\events\TaskEvent as TaskEvent;
  * 
  * @property Users $user
  */
-class Tasks extends \yii\db\ActiveRecord
+class Tasks extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -33,7 +37,7 @@ class Tasks extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'date'], 'required'],
-            [['date'], 'safe'],
+            [['date', 'updated_at', 'created_at'], 'safe'],
             [['description'], 'string'],
             [['responsible_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
@@ -51,6 +55,8 @@ class Tasks extends \yii\db\ActiveRecord
             'date' => 'Date',
             'description' => 'Description',
             'responsible_id' => 'Responsible User ID',
+            'created_at' => 'Created time',
+            'update_at' => 'Updated time'
         ];
     }
 
@@ -92,5 +98,19 @@ class Tasks extends \yii\db\ActiveRecord
                 'changedAttributes' => $changedAttributes,
             ]));
         }
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['update_at'],
+                    ],
+                'value' => new Expression('NOW()'),
+            ],
+        ];
     }
 }

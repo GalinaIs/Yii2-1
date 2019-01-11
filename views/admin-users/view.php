@@ -38,7 +38,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'RoleName',
                 'value' => $model->role->name
             ],
-            'email'
+            'email',
+            'created_at',
+            'update_at'
         ],
     ]) ?>
 
