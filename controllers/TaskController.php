@@ -25,8 +25,12 @@ class TaskController extends Controller {
         ]);
     }
 
-    public function actionItem() {
-        return $this->render('item');
+    public function actionItem($id) {
+        $model = Tasks::findOne($id);
+
+        return $this->render('item', [
+            'model' => $model
+        ]);
     }
 
     public function actionModel() {//проверка работы правил валидации

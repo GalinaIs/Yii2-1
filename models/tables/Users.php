@@ -41,7 +41,7 @@ class Users extends ActiveRecord
             [['role_id'], 'number'],
             [['email'], 'email'],
             [['email'], 'string', 'max' => 64],
-
+            [['updated_at', 'created_at'], 'safe'],
         ];
     }
 

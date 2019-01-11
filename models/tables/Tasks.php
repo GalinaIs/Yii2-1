@@ -64,6 +64,10 @@ class Tasks extends ActiveRecord
         return $this->hasOne(Users::class, ['id' => 'responsible_id']);
     }
 
+    public function getStatus() {
+        return $this->hasOne(Status::class, ['id' => 'id_status']);
+    }
+
     private function descriptionForSend() {
         $description = '';
 
