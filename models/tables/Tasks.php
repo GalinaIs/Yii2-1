@@ -39,7 +39,7 @@ class Tasks extends ActiveRecord
             [['name', 'date'], 'required'],
             [['date', 'updated_at', 'created_at'], 'safe'],
             [['description'], 'string'],
-            [['responsible_id'], 'integer'],
+            [['responsible_id', 'id_status'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }
@@ -51,12 +51,13 @@ class Tasks extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'date' => 'Date',
-            'description' => 'Description',
-            'responsible_id' => 'Responsible User ID',
+            'name' => 'Название',
+            'date' => 'Срок',
+            'description' => 'Описание',
+            'responsible_id' => 'Ответственный',
             'created_at' => 'Created time',
-            'update_at' => 'Updated time'
+            'update_at' => 'Updated time',
+            'id_status' => 'Статус задачи'
         ];
     }
 
@@ -68,34 +69,10 @@ class Tasks extends ActiveRecord
         return $this->hasOne(Status::class, ['id' => 'id_status']);
     }
 
-    private function descriptionForSend() {
-        $description = '';
-
-        if ($this->name) {
-            $description .= '<b>Название задачи: </b>';
-            $description .= $this->name;
-        }
-
-        if ($this->date) {
-            $description .= '<br>';
-            $description .= '<b>Срок исполнения задачи: </b>';
-            $description .= $this->date;
-        }
-
-        if ($this->description) {
-            $description .= '<br>';
-            $description .= '<b>Описание задачи: </b>';
-            $description .= $this->description;
-        }
-
-        return $description;
-    }
-
     public function afterSave($insert, $changedAttributes) {
         if ($insert) {
             $this->trigger(self::EVENT_AFTER_INSERT, new TaskEvent([
-                'mail' => $this->user->email,
-                'description' => $this->descriptionForSend()
+                'task' => $this
             ]));
         } else {
             $this->trigger(self::EVENT_AFTER_UPDATE, new AfterSaveEvent([

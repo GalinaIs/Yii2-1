@@ -4,6 +4,5 @@ namespace app\events;
 use yii\base\Event;
 
 class TaskEvent extends Event {
-    public $mail;
-    public $description;
+    public $task;
 }

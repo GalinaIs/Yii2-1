@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ListView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -22,4 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); 
     
     ?>
+
+    <?= Html::beginForm(Url::to(['task/create'])) ?>
+        <?= Html::submitButton('Создать новую задачу', ['class' => 'btn btn-warning create_task_button']) ?>
+    <?= Html::endForm() ?>
 </div>
