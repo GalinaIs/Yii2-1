@@ -53,7 +53,8 @@ AppAsset::register($this);
                 )
                 . Html::endForm()
                 . '</li>'
-            )
+                ),
+                ['label' => 'Личный кабинет', 'url' => ['/user/index']],
         ],
     ]);
     NavBar::end();
