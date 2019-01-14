@@ -10,11 +10,23 @@ use app\models\tables\Tasks;
 use app\models\tables\Users;
 use app\models\tables\Status;
 use yii\helpers\ArrayHelper;
+use app\models\DateForm;
 
 class TaskController extends Controller {
 
     public function actionIndex() {
-        $query = Tasks::find();
+        $session = Yii::$app->session;
+        if (Yii::$app->request->method == 'POST') {
+            $dateModel = new DateForm();
+            $dateModel->load(Yii::$app->request->post());
+            $session->set('dateModel', $dateModel);
+        } else {
+            $dateModel = $session->has('dateModel') ? $session->get('dateModel') : new DateForm();
+        }
+        
+        $query = Tasks::find()
+            ->andFilterWhere(['>=', 'date', $dateModel->dateBegin])
+            ->andFilterWhere(['<=', 'date', $dateModel->dateEnd]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -24,7 +36,8 @@ class TaskController extends Controller {
         ]);
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
+            'dateModel' => $dateModel,
         ]);
     }
 
