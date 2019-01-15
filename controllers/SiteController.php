@@ -35,6 +35,18 @@ class SiteController extends Controller
                     'logout' => ['post'],
                 ],
             ],
+            'cache' => [
+                'class' => 'yii\filters\PageCache',
+                'only' => ['contact'],
+                'duration' => 600,
+                'dependency' => [
+                    'class' => 'yii\caching\DbDependency',
+                    'sql' => 'SELECT COUNT(*) FROM tasks'
+                ],
+                'variations' => [
+                    Yii::$app->language
+                ]
+            ]
         ];
     }
 
