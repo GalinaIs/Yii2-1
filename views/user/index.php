@@ -6,11 +6,18 @@
 <h2><?= $user->name ?>, добро пожаловать в личный кабинет!</h2>
 <h4>Задачи, которые назначены на Вас: </h4>
 
-<?= ListView::widget([
-    'dataProvider' => $dataProvider,
-    'itemView' => '_list',
-    'options' => [
-        'class' => 'preview_tasks'
-    ],
-    'summary' => false
-]);
+<?php
+
+if ($this->beginCache('user_tasks', ['duration' => 60])) {
+    echo ListView::widget([
+        'dataProvider' => $dataProvider,
+        'itemView' => '_list',
+        'options' => [
+            'class' => 'preview_tasks'
+        ],
+        'summary' => false
+    ]);
+    
+    $this->endCache();
+}
+?>
