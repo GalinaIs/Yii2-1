@@ -26,6 +26,10 @@ class UserController extends Controller {
                 'pageSize' => 6
             ]
         ]);
+
+        Yii::$app->db->cache(function () use ($dataProvider) {
+            return $dataProvider->prepare();
+        }, 60);
     
         return $this->render('index', [
             'user' => $user,

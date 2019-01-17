@@ -8,7 +8,7 @@
 
 <?php
 
-if ($this->beginCache('user_tasks', ['duration' => 60])) {
+//if ($this->beginCache("user_tasks_{$user->id}", ['duration' => 60])) {
     echo ListView::widget([
         'dataProvider' => $dataProvider,
         'itemView' => '_list',
@@ -18,6 +18,6 @@ if ($this->beginCache('user_tasks', ['duration' => 60])) {
         'summary' => false
     ]);
     
-    $this->endCache();
-}
+    //$this->endCache();
+//}
 ?>
