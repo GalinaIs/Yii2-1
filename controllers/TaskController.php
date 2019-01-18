@@ -11,6 +11,9 @@ use app\models\tables\Users;
 use app\models\tables\Status;
 use yii\helpers\ArrayHelper;
 use app\models\DateForm;
+use app\models\tables\Comments;
+use yii\web\UploadedFile;
+use app\models\tables\TaskComment;
 
 class TaskController extends Controller {
 
@@ -43,9 +46,41 @@ class TaskController extends Controller {
 
     public function actionItem($id) {
         $model = Tasks::findOne($id);
+        $user_id = Yii::$app->user->identity->id;
+        $modelComment = new Comments();
+
+        if ($modelComment->load(Yii::$app->request->post())){
+            $modelComment->user_id = $user_id;
+            $modelComment->task_id = $id;
+            
+            if ($modelComment->img_path = UploadedFile::getInstance($modelComment, 'img_path')) {
+                $modelComment->upload();
+            }
+            $modelComment->save();
+        }
+
+        /*$idsComment = TaskComment::find()
+            ->where(['task_id' => $id])
+            ->asArray()
+            ->all();
+        $listIdComment = ArrayHelper::map($idsComment, 'id', 'comment_id');*/
+        //var_dump($listIdComment);
+
+        $query = Comments::find()
+            ->where(['task_id' => $id]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 6
+            ]
+        ]);
+        //var_dump($listComments);
 
         return $this->render('item', [
-            'model' => $model
+            'model' => $model,
+            'user_id' => $user_id,
+            'modelComment' => new Comments(),
+            'dataProvider' => $dataProvider
         ]);
     }
 

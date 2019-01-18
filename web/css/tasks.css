@@ -28,3 +28,9 @@ form {
     display: block;
     margin-bottom: 10px!important;
 }
+
+.one_comment_view {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid black;
+}
