@@ -14,6 +14,7 @@ use app\models\DateForm;
 use app\models\tables\Comments;
 use yii\web\UploadedFile;
 use app\models\tables\TaskComment;
+use app\services\TaskLabel;
 
 class TaskController extends Controller {
 
@@ -44,6 +45,24 @@ class TaskController extends Controller {
         ]);
     }
 
+    private function createLabelPageOneItem() {
+        $labelPage = new TaskLabel();
+        $labelPage->descriptionLabel = Yii::t('taskItem', 'descriptionLabel');
+        $labelPage->nameLabel = Yii::t('taskItem', 'nameLabel');
+        $labelPage->dateLabel = Yii::t('taskItem', 'dateLabel');
+        $labelPage->responsibleLabel = Yii::t('taskItem', 'responsibleLabel');
+        $labelPage->statusLabel = Yii::t('taskItem', 'statusLabel');
+        $labelPage->buttonChange = Yii::t('taskItem', 'buttonChange');
+        $labelPage->commentLoginLabel = Yii::t('taskItem', 'commentLoginLabel');
+        $labelPage->commentsTaskLabel = Yii::t('taskItem', 'commentsTaskLabel');
+        $labelPage->userLabel = Yii::t('taskItem', 'userLabel');
+        $labelPage->nameCommentLabel = Yii::t('taskItem', 'nameCommentLabel');
+        $labelPage->commentLabel = Yii::t('taskItem', 'commentLabel');
+        $labelPage->addCommentLabel = Yii::t('taskItem', 'addCommentLabel');
+
+        return $labelPage;
+    }
+
     public function actionItem($id) {
         $model = Tasks::findOne($id);
         $user_id = Yii::$app->user->identity->id;
@@ -59,13 +78,6 @@ class TaskController extends Controller {
             $modelComment->save();
         }
 
-        /*$idsComment = TaskComment::find()
-            ->where(['task_id' => $id])
-            ->asArray()
-            ->all();
-        $listIdComment = ArrayHelper::map($idsComment, 'id', 'comment_id');*/
-        //var_dump($listIdComment);
-
         $query = Comments::find()
             ->where(['task_id' => $id]);
         $dataProvider = new ActiveDataProvider([
@@ -74,13 +86,15 @@ class TaskController extends Controller {
                 'pageSize' => 6
             ]
         ]);
-        //var_dump($listComments);
+
+        $labelPage = $this->createLabelPageOneItem();
 
         return $this->render('item', [
             'model' => $model,
             'user_id' => $user_id,
             'modelComment' => new Comments(),
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
+            'labelPage' => $labelPage
         ]);
     }
 

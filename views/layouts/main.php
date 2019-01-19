@@ -9,6 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\models\tables\Language;
 
 AppAsset::register($this);
 ?>
@@ -45,7 +46,7 @@ AppAsset::register($this);
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
-                '<li>'
+                '<li class="li_user">'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
                     'Logout (' . Yii::$app->user->identity->username . ')',
@@ -53,8 +54,19 @@ AppAsset::register($this);
                 )
                 . Html::endForm()
                 . '</li>'
-                ),
-                ['label' => 'Личный кабинет', 'url' => ['/user/index']],
+            ),
+            ['label' => 'Личный кабинет', 'url' => ['/user/index']],
+            '<li class="li_language">'
+                . Html::beginForm(['/language/change'], 'post')
+                . Html::dropDownList('select_language', 
+                    Yii::$app->user->identity->language_id ? Yii::$app->user->identity->language_id : 
+                        Yii::$app->session->get('langId'), Language::getLanguageList())
+                . Html::submitButton(
+                    'Изменить язык',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+            . '</li>'
         ],
     ]);
     NavBar::end();

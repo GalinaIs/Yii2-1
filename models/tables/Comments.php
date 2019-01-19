@@ -52,9 +52,9 @@ class Comments extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'content' => 'Content',
-            'img_path' => 'Img Path',
+            'title' => Yii::t('taskComment', 'title'),
+            'content' => Yii::t('taskComment', 'content'),
+            'img_path' => Yii::t('taskComment', 'img_path'),
             'user_id' => 'User ID',
         ];
     }

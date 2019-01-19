@@ -41,12 +41,12 @@ class m190111_160451_create_new_column_task extends Migration
      */
     public function safeDown()
     {
-        $this->dropColumn('tasks', 'id_status');
-
         $this->dropForeignKey(
             'fk_tasks_status',
             'tasks'
         );
+
+        $this->dropColumn('tasks', 'id_status');
 
         $this->dropTable('status');
     }

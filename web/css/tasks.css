@@ -34,3 +34,22 @@ form {
     margin: 10px;
     border: 1px solid black;
 }
+
+.li_language select {
+    background-color: transparent;
+    color: #9d9d9d;
+}
+
+.li_language form,
+.li_user form {
+    margin-bottom: 0!important;
+}
+
+.li_language form {
+    border: 1px solid #9d9d9d;
+    padding-left: 10px;
+}
+
+.li_language {
+    display: none;
+}

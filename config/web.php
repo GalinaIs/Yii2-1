@@ -35,6 +35,9 @@ $config = [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
         ],
+        'lang' => [
+            'class' => 'app\models\tables\Language'
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -57,6 +60,14 @@ $config = [
         'db' => $db,
         'startApp' => [
             'class' => 'app\components\StartApp'
+        ],
+        'i18n' => [
+            'translations' => [
+                'task*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/message'
+                ]
+            ]
         ]
         /*
         'urlManager' => [

@@ -7,18 +7,18 @@ use yii\widgets\ListView;
 
 ?>
 
-<h2>Название: <?= $model->name ?></h2>
-<p>Описание: <?= $model->description ?></p>
-<div>Срок исполнения: <?= $model->date ?></div>
-<div>Ответственный: <?= $model->user->name ?></div>
-<div>Статус: <?= $model->status->name ?></div>
+<h2><?=$labelPage->nameLabel ?><?= $model->name ?></h2>
+<p><?= $labelPage->descriptionLabel ?><?= $model->description ?></p>
+<div><?= $labelPage->dateLabel ?><?= $model->date ?></div>
+<div><?= $labelPage->responsibleLabel ?><?= $model->user->name ?></div>
+<div><?= $labelPage->statusLabel ?><?= $model->status->name ?></div>
 
 <?= Html::beginForm(['task/update', 'id' => $model->id]) ?>
-    <?= Html::submitButton('Изменить задачу', ['class' => 'btn btn-warning create_task_button']) ?>
+    <?= Html::submitButton($labelPage->buttonChange, ['class' => 'btn btn-warning create_task_button']) ?>
 <?= Html::endForm() ?>
 
 <?php if($user_id): ?>
-<h4>Добавить комментарий к задаче: </h4>
+<h4><?= $labelPage->addCommentLabel ?></h4>
 <?php $form = ActiveForm::begin(); ?>
 
 <?= $form->field($modelComment, 'title')->textInput(['maxlength' => true]) ?>
@@ -31,10 +31,10 @@ use yii\widgets\ListView;
 
 <?php ActiveForm::end(); ?>
 <?php else: ?>
-<h4>Чтобы оставить комментарий к задаче, необходимо авторизоваться</h4>
+<h4><?= $labelPage->commentLoginLabel ?></h4>
 <?php endif; ?>
 
-<h4>Комментарии к задаче: </h4>
+<h4><?= $labelPage->commentsTaskLabel ?></h4>
 <?= ListView::widget([
         'dataProvider' => $dataProvider,
         'itemView' => '_list',
@@ -43,5 +43,10 @@ use yii\widgets\ListView;
         ],
         'summary' => false,
         'emptyText' => 'Нет комментариев',
+        'viewParams' => [
+            'userLabel' => $labelPage->userLabel,
+            'nameCommentLabel' => $labelPage->nameCommentLabel,
+            'commentLabel' => $labelPage->commentLabel
+        ]
     ]);
 ?>

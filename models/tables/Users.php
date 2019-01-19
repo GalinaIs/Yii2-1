@@ -67,7 +67,8 @@ class Users extends ActiveRecord
             return [
                 'id',
                 'username' => 'login',
-                'password'
+                'password',
+                'language_id'
             ];
         }
 
