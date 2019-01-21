@@ -1,20 +1,20 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\admin\controllers;
 
 use Yii;
-use app\models\tables\Tasks;
-use app\models\filters\TasksSearch;
+use app\models\tables\Users;
+use app\modules\admin\models\filters\UsersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\tables\Users;
 use yii\helpers\ArrayHelper;
+use app\models\tables\Roles;
 
 /**
- * AdminTasksController implements the CRUD actions for Tasks model.
+ * AdminUsersController implements the CRUD actions for Users model.
  */
-class AdminTasksController extends Controller
+class UsersController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -32,12 +32,12 @@ class AdminTasksController extends Controller
     }
 
     /**
-     * Lists all Tasks models.
+     * Lists all Users models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new TasksSearch();
+        $searchModel = new UsersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -47,7 +47,7 @@ class AdminTasksController extends Controller
     }
 
     /**
-     * Displays a single Tasks model.
+     * Displays a single Users model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -60,15 +60,15 @@ class AdminTasksController extends Controller
     }
 
     /**
-     * Creates a new Tasks model.
+     * Creates a new Users model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Tasks();
-        $users = Users::find()->all();
-        $usersList = ArrayHelper::map($users, 'id', 'name');
+        $model = new Users();
+        $role = Roles::find()->all();
+        $rolesList = ArrayHelper::map($role, 'id', 'name');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,12 +76,12 @@ class AdminTasksController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'usersList' => $usersList
+            'rolesList' => $rolesList
         ]);
     }
 
     /**
-     * Updates an existing Tasks model.
+     * Updates an existing Users model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -90,8 +90,8 @@ class AdminTasksController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $users = Users::find()->all();
-        $usersList = ArrayHelper::map($users, 'id', 'name');
+        $role = Roles::find()->all();
+        $rolesList = ArrayHelper::map($role, 'id', 'name');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -99,12 +99,12 @@ class AdminTasksController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'usersList' => $usersList
+            'rolesList' => $rolesList
         ]);
     }
 
     /**
-     * Deletes an existing Tasks model.
+     * Deletes an existing Users model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -118,15 +118,15 @@ class AdminTasksController extends Controller
     }
 
     /**
-     * Finds the Tasks model based on its primary key value.
+     * Finds the Users model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Tasks the loaded model
+     * @return Users the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Tasks::findOne($id)) !== null) {
+        if (($model = Users::findOne($id)) !== null) {
             return $model;
         }
 
