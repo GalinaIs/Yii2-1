@@ -68,15 +68,14 @@ $config = [
                     'basePath' => '@app/message'
                 ]
             ]
-        ]
-        /*
+        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'task/item/<id:\d+>' => 'task/item',
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
