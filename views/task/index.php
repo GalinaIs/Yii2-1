@@ -6,12 +6,14 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use kartik\datetime\DateTimePicker;
 use yii\widgets\Pjax;
+use app\assets\TasksAsset;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Tasks Tracker';
 $this->params['breadcrumbs'][] = $this->title;
+TasksAsset::register($this);
 ?>
 <div class="tasks-index">
 

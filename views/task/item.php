@@ -4,7 +4,9 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\widgets\ListView;
+use app\assets\OneTaskAsset;
 
+OneTaskAsset::register($this);
 ?>
 
 <h2><?=$labelPage->nameLabel ?><?= $model->name ?></h2>

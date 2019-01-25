@@ -113,3 +113,32 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.li_language select {
+    background-color: transparent;
+    color: #9d9d9d;
+}
+
+.li_language form,
+.li_user form {
+    margin-bottom: 0!important;
+}
+
+.li_language form {
+    border: 1px solid #9d9d9d;
+    padding-left: 10px;
+}
+
+.li_language {
+    display: none;
+}
+
+form {
+    display: block;
+    margin-bottom: 10px!important;
+}
+
+.pagination,
+.summary {
+    width: 100%;
+}
