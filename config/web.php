@@ -81,6 +81,9 @@ $config = [
                 'task/item/<id:\d+>' => 'task/item',
             ],
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager'
+        ]
     ],
     'params' => $params,
 ];

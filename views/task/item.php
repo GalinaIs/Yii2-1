@@ -19,7 +19,7 @@ OneTaskAsset::register($this);
     <?= Html::submitButton($labelPage->buttonChange, ['class' => 'btn btn-warning create_task_button']) ?>
 <?= Html::endForm() ?>
 
-<?php if($user_id): ?>
+<?php if($user_id && !\Yii::$app->user->can('CommentAddDenied')): ?>
 <h4><?= $labelPage->addCommentLabel ?></h4>
 <?php $form = ActiveForm::begin(); ?>
 

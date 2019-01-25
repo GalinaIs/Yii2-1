@@ -6,7 +6,7 @@ return [
     'responsibleLabel' => 'Ответственный: ',
     'statusLabel' => 'Статус: ',
     'buttonChange' => 'Изменить задачу',
-    'commentLoginLabel'=> 'Чтобы оставить комментарий к задаче, необходимо авторизоваться',
+    'commentLoginLabel'=> 'У Вас недостаточно прав для того, чтобы оставить комментарий к задаче',
     'commentsTaskLabel' => 'Комментарии к задаче:',
     'userLabel' => 'Пользователь: ',
     'nameCommentLabel' => 'Тема: ',

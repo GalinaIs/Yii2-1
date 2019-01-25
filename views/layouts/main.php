@@ -10,6 +10,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use app\models\tables\Language;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -56,7 +57,7 @@ AppAsset::register($this);
             ),
             ['label' => 'Личный кабинет', 'url' => ['/user/index']],
             '<li class="li_language">'
-                . Html::beginForm(['/language/change'], 'post')
+                . Html::beginForm(Url::to(['/language/change']), 'post')
                 . Html::dropDownList('select_language', 
                     Yii::$app->user->identity->language_id ? Yii::$app->user->identity->language_id : 
                         Yii::$app->session->get('langId'), Language::getLanguageList())

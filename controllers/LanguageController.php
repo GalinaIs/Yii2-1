@@ -14,6 +14,6 @@ class LanguageController extends Controller {
     public function actionChange() {
         $idLang = Yii::$app->request->post()['select_language'];
         Yii::$app->lang->setLanguageApp($idLang);
-        return $this->goBack((!empty(Yii::$app->request->referrer) ? Yii::$app->request->referrer : null));
+        return $this->redirect(Yii::$app->request->referrer);
     }
 }

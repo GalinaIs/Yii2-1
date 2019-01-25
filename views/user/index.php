@@ -1,6 +1,9 @@
 <?php
     use yii\widgets\ListView;
     use yii\grid\GridView;
+    use app\assets\TasksAsset;
+
+    TasksAsset::register($this);
 ?>
 
 <h2><?= $user->name ?>, добро пожаловать в личный кабинет!</h2>
